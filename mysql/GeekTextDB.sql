@@ -6,7 +6,7 @@ their account info **/
 CREATE TABLE `Users` (
   `Username` varchar(25) not null,
   `FirstName` varchar(15) not null,
-  `MiddleName` varchar(15) not null,
+  `MiddleName` varchar(15) null,
   `LastName` varchar(20) not null,
   `Email` varchar(50) not null,
   `Password` varchar(20) not null,
@@ -73,7 +73,6 @@ CREATE TABLE `Genres` (
 CREATE TABLE `Authors` (
   `AuthorID` int not null auto_increment,
   `FirstName` varchar(15) not null,
-  `MiddleName` varchar(15) not null,
   `LastName` varchar(20) not null,
   `Biography` varchar(500),
   PRIMARY KEY (`AuthorID`)
@@ -193,4 +192,3 @@ CREATE TABLE `Reviews` (
   FOREIGN KEY (`OrderID`) REFERENCES GeekTextDB.Orders(`OrderID`),
   FOREIGN KEY (`ISBN`) REFERENCES GeekTextDB.Books(`ISBN`)
 );
-
