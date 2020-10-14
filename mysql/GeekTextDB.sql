@@ -193,3 +193,4 @@ CREATE TABLE `Reviews` (
   FOREIGN KEY (`OrderID`) REFERENCES GeekTextDB.Orders(`OrderID`),
   FOREIGN KEY (`ISBN`) REFERENCES GeekTextDB.Books(`ISBN`)
 );
+
