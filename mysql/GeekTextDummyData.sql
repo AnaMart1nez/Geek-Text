@@ -1,9 +1,9 @@
 /** Dummy data for Authors table **/
-INSERT INTO `geektextdb`.`authors` (`AuthorID`, `FirstName`, `MiddleName`, `LastName`, `Biography`) VALUES ('1', 'Paulo', 'A', 'Coelho', 'es in 1807, who was engaged to marry a rich woman when three jealous friends falsely accused him of being a');
-INSERT INTO `geektextdb`.`authors` (`AuthorID`, `FirstName`, `MiddleName`, `LastName`, `Biography`) VALUES ('2', 'Alexandre', 'B', 'Dumas', 'ies\", Peuchet describes a poisoning in a family. This story, also quoted in the ');
-INSERT INTO `geektextdb`.`authors` (`AuthorID`, `FirstName`, `MiddleName`, `LastName`, `Biography`) VALUES ('3', 'J.K.', 'C', 'Rowling', ' resemblance to that of the Faria in the novel. As for Dantès, his fate is quite different ');
-INSERT INTO `geektextdb`.`authors` (`AuthorID`, `FirstName`, `MiddleName`, `LastName`, `Biography`) VALUES ('4', 'Kurt', 'D', 'Vonnegut', 'ed this essay in one of the editions from 1846.[6] Peuchet told of a shoemaker, Pierre Picaud, living');
-INSERT INTO `geektextdb`.`authors` (`AuthorID`, `FirstName`, `MiddleName`, `LastName`, `Biography`) VALUES ('5', 'Roald', 'E', 'Dahl', 'cques Peuchet, a French police archivist, published in 1838 after the death of the author');
+INSERT INTO `geektextdb`.`authors` (`AuthorID`, `FirstName`, `LastName`, `Biography`) VALUES ('1', 'Paulo', 'Coelho', 'es in 1807, who was engaged to marry a rich woman when three jealous friends falsely accused him of being a');
+INSERT INTO `geektextdb`.`authors` (`AuthorID`, `FirstName`, `LastName`, `Biography`) VALUES ('2', 'Alexandre', 'Dumas', 'ies\", Peuchet describes a poisoning in a family. This story, also quoted in the ');
+INSERT INTO `geektextdb`.`authors` (`AuthorID`, `FirstName`, `LastName`, `Biography`) VALUES ('3', 'J.K.', 'Rowling', ' resemblance to that of the Faria in the novel. As for Dantès, his fate is quite different ');
+INSERT INTO `geektextdb`.`authors` (`AuthorID`, `FirstName`, `LastName`, `Biography`) VALUES ('4', 'Kurt', 'Vonnegut', 'ed this essay in one of the editions from 1846.[6] Peuchet told of a shoemaker, Pierre Picaud, living');
+INSERT INTO `geektextdb`.`authors` (`AuthorID`, `FirstName`, `LastName`, `Biography`) VALUES ('5', 'Roald', 'Dahl', 'cques Peuchet, a French police archivist, published in 1838 after the death of the author');
 
 /** Dummy data for Publishers table **/
 INSERT INTO `geektextdb`.`publishers` (`PublisherID`, `PublisherName`) VALUES ('1', 'Penguin Classics');
