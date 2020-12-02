@@ -1,0 +1,92 @@
+--- GET ------------------------------------
+http://localhost:8080/books
+http://localhost:8080/books/1
+
+http://localhost:8080/authors
+http://localhost:8080/authors/1
+
+http://localhost:8080/authors/1/books
+
+http://localhost:8080/wishlist
+http://localhost:8080/wishlist/1
+
+http://localhost:8080/wishlistitems
+http://localhost:8080/wishlistitems/1
+
+http://localhost:8080/books/1/wishlistitems
+
+
+--- POST --------------------------------------
+http://localhost:8080/books
+{
+    "book_id": 1,
+    "isbn": "1-123",
+    "title": "title1",
+    "cover": "Cover1",
+    "genre_name": "GenreName1",
+    "price": 2.5,
+    "date_published": "23/4/2020",
+    "publisher_name": "PublisherName1",
+    "summary": "summary testing 1",
+    "book_sells": 10,
+    "author": {
+        "name": "Name 1",
+        "biography": "Bio 1",
+        "authorID": 1
+    }
+}
+
+
+http://localhost:8080/authors
+{
+    "name": "Name 1",
+    "biography": "Bio 1",
+    "authorID": 1
+}
+
+
+http://localhost:8080/wishlist
+{
+    "wishlistID": 1,
+    "userID": 1,
+    "wishlistindex": 1,
+    "wishlistname": "Wish List Name 1"
+}
+
+
+http://localhost:8080/wishlistitems
+{
+    "userID": 1,
+    "book": {
+        "book_id": 1,
+        "isbn": "1-123",
+        "title": "title1",
+        "cover": "Cover1",
+        "genre_name": "GenreName1",
+        "price": 2.5,
+        "date_published": "23/4/2020",
+        "publisher_name": "PublisherName1",
+        "summary": "summary testing 1",
+        "book_sells": 10,
+        "author": {
+            "name": "Name 1",
+            "biography": "Bio 1",
+            "authorID": 1
+        }
+    },
+    "wishListItemID": 1,
+    "wishList": {
+        "wishlistID": 1,
+        "userID": 1,
+        "wishlistindex": 1,
+        "wishlistname": "Wish List Name 1"
+    }
+}
+
+--- PUT ---------------------------------------
+
+--- DELETE ------------------------------------
+http://localhost:8080/books/1
+http://localhost:8080/authors/1
+http://localhost:8080/wishlist/1
+http://localhost:8080/wishlistitems/1
