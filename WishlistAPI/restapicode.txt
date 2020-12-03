@@ -1,0 +1,263 @@
+// Get all WishList
+@GetMapping
+public List<WishList> getAllWishList(){
+	return this.wishListRepository.findAll();
+}
+
+// Get a Single WishList by ID
+@GetMapping("/{id}")
+public WishList getWishListById(@PathVariable(value = "id")Integer wishlistID) throws WishListNotFoundException{
+	return this.wishListRepository.findById(wishlistID)
+			.orElseThrow(()-> new WishListNotFoundException(wishlistID));
+}
+
+
+// Create WishList 
+@PostMapping
+public WishList createWishList(@RequestBody WishList wishlist) {
+	return this.wishListRepository.save(wishlist);
+}
+ 
+// Update WishList
+@PutMapping("/{id}")
+public WishList updateWishList(@PathVariable(value = "id") Integer wishlistID, 
+	@RequestBody WishList wishlistDetails) throws WishListNotFoundException{
+	
+WishList wishlist = this.wishListRepository.findById(wishlistID)
+		.orElseThrow(()-> new WishListNotFoundException(wishlistID));
+	
+wishlist.setUserID(wishlistDetails.getUserID());
+wishlist.setWishlistindex(wishlistDetails.getWishlistindex());
+wishlist.setWishlistname(wishlistDetails.getWishlistname());
+	
+	WishList updatedWishList = wishListRepository.save(wishlist);
+	
+	return updatedWishList;
+	
+}
+
+ //Delete WishList by ID
+
+@DeleteMapping("/{id}")
+public ResponseEntity<?> deleteWishList(@PathVariable(value = "id") Integer wishlistID) throws WishListNotFoundException{
+WishList wishlist = wishListRepository.findById(wishlistID)
+		.orElseThrow(()-> new WishListNotFoundException(wishlistID));
+	
+wishListRepository.delete(wishlist);
+	
+return ResponseEntity.ok().build();
+
+}
+
+//Get list of items from a WishList
+@GetMapping("/{id}/wishlistitems")
+public List<WishListItems> getItemsByWishList(@PathVariable( value ="id") Integer wishlistID) throws WishListNotFoundException{
+return this.wishListRepository.getItemsByWishList(wishlistID);
+}	
+}
+
+________________________________________________________________________________
+// GET ALL ITEMS 
+@GetMapping
+public List<WishListItems> getAllWishListItems(){
+	return this.wishListItemsRepository.findAll();
+}
+
+// GET ITEM BY ID
+@GetMapping("/{ItemID}")
+public WishListItems getWishListItemById(@PathVariable(value = "ItemID")Integer wishlistitemID) throws WishListItemNotFoundException{
+	return this.wishListItemsRepository.findById(wishlistitemID)
+			.orElseThrow(()-> new WishListItemNotFoundException(wishlistitemID));
+}
+
+// CREATE A NEW ITEM
+@PostMapping
+public WishListItems createWishListItems(@RequestBody WishListItems wishlistitems) {
+	return wishListItemsRepository.save(wishlistitems);
+}
+	
+// Update WishListitem
+@PutMapping("/{ItemID}")
+public WishListItems updateWishListItems(@PathVariable(value = "ItemID") Integer wishlistitemID,
+		@RequestBody WishListItems wishlistitemsDetails) throws WishListItemNotFoundException{
+	
+	WishListItems wishlistitem = this.wishListItemsRepository.findById(wishlistitemID)
+			.orElseThrow(()-> new WishListItemNotFoundException(wishlistitemID));
+	
+	wishlistitem.setWishListItemID(wishlistitemsDetails.getWishListItemID());
+	wishlistitem.setWishList(wishlistitemsDetails.getWishList());
+	wishlistitem.setUserID(wishlistitemsDetails.getUserID());
+	//wishlistitem.setBook(wishlistitemsDetails.getBook());
+	
+	WishListItems updateWishListItems = wishListItemsRepository.save(wishlistitem);
+	
+	return updateWishListItems;
+}
+// Delete items by id (DELETE)
+@DeleteMapping("/{ItemID}")
+public ResponseEntity<WishListItems> deleteWishListItems(@PathVariable(value = "ItemID") Integer wishlistitemID) throws WishListItemNotFoundException{
+	WishListItems existingWishListItem = this.wishListItemsRepository.findById(wishlistitemID) 
+			.orElseThrow(()-> new WishListItemNotFoundException(wishlistitemID));
+	this.wishListItemsRepository.delete(existingWishListItem);
+	return ResponseEntity.ok().build();
+}
+
+
+			
+}
+	
+
+	
+
+_________________________________________________________________________________________
+
+package com.rest.API.Controller;
+
+import com.rest.API.Exception.AuthorNotFoundException;
+import com.rest.API.Model.Author;
+import com.rest.API.Model.Book;
+import com.rest.API.Repository.AuthorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/authors")
+public class AuthorController {
+    @Autowired
+    AuthorRepository authorRepository;
+
+    // Get All Authors
+    @GetMapping
+    public List<Author> getAllAuthors() {
+        return authorRepository.findAll();
+    }
+
+    // Get Author by ID
+    @GetMapping("/{author_id}")
+    public Author getAuthorById(@PathVariable(value = "author_id") Long author_id) throws AuthorNotFoundException {
+        return authorRepository.findById(author_id)
+                .orElseThrow(() -> new AuthorNotFoundException(author_id));
+    }
+
+    // Create a Author
+    @PostMapping
+    public Author createAuthor(@RequestBody Author author) {
+        return authorRepository.save(author);
+    }
+
+    // Update an Author
+    @PutMapping("/{author_id}")
+    public Author updateAuthor(@PathVariable(value = "author_id") Long author_id,
+                             @RequestBody Author authorDetails) throws AuthorNotFoundException {
+
+        Author existingAuthor = authorRepository.findById(author_id)
+                .orElseThrow(() -> new AuthorNotFoundException(author_id));
+
+        existingAuthor.setName(authorDetails.getName());
+        existingAuthor.setBiography(authorDetails.getBiography());
+
+        Author updatedAuthor = authorRepository.save(existingAuthor);
+
+        return updatedAuthor;
+    }
+
+    // Delete Author by Id
+    @DeleteMapping("/{author_id}")
+    public ResponseEntity<?> deleteAuthor(@PathVariable(value = "author_id") Long author_id) throws AuthorNotFoundException {
+        Author existingAuthor = authorRepository.findById(author_id)
+                .orElseThrow(() -> new AuthorNotFoundException(author_id));
+
+        authorRepository.delete(existingAuthor);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{author_id}/books")
+    public List<Book> getBooksByAuthor(@PathVariable("author_id") Long author_id) {
+        return authorRepository.getBooksByAuthor(author_id);
+    }
+}
+
+____________________________________________________________________________________________
+
+import com.rest.API.Exception.BookNotFoundException;
+import com.rest.API.Exception.WishListNotFoundException;
+import com.rest.API.Model.Book;
+import com.rest.API.Model.WishListItems;
+import com.rest.API.Repository.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/books")
+public class BookController {
+    @Autowired
+    BookRepository bookRepository;
+
+    // Get All Books
+    @GetMapping
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
+    }
+
+    // Get a Book by Id
+    @GetMapping("/{book_id}")
+    public Book getBookById(@PathVariable(value = "book_id") Long book_id) throws BookNotFoundException {
+        return bookRepository.findById(book_id)
+                .orElseThrow(() -> new BookNotFoundException(book_id));
+    }
+
+    // Create a new Book
+    @PostMapping
+    public Book createBook(@RequestBody Book book) {
+        return bookRepository.save(book);
+    }
+
+    // Update a Book
+    @PutMapping("/{book_id}")
+    public Book updateBook(@PathVariable(value = "book_id") Long book_id,
+                             @RequestBody Book bookDetails) throws BookNotFoundException {
+
+        Book existingBook = bookRepository.findById(book_id)
+                .orElseThrow(() -> new BookNotFoundException(book_id));
+
+        existingBook.setPrice(bookDetails.getPrice());
+        existingBook.setIsbn(bookDetails.getIsbn());
+        existingBook.setTitle(bookDetails.getTitle());
+        existingBook.setCover(bookDetails.getCover());
+        existingBook.setGenre_name(bookDetails.getGenre_name());
+        existingBook.setAuthor(bookDetails.getAuthor());
+        existingBook.setDate_published(bookDetails.getDate_published());
+        existingBook.setPublisher_name(bookDetails.getPublisher_name());
+        existingBook.setSummary(bookDetails.getSummary());
+        existingBook.setBook_sells(bookDetails.getBook_sells());
+
+        Book updatedBook = bookRepository.save(existingBook);
+
+        return updatedBook;
+    }
+
+    // Delete a Book By Id
+    @DeleteMapping("/{book_id}")
+    public ResponseEntity<?> deleteBook(@PathVariable(value = "book_id") Long book_id) throws BookNotFoundException {
+        Book existingBook = bookRepository.findById(book_id)
+                .orElseThrow(() -> new BookNotFoundException(book_id));
+
+        bookRepository.delete(existingBook);
+        return ResponseEntity.ok().build();
+    }
+    
+  //Get info of a book that is a wishlistitem
+    @GetMapping("/{book_id}/wishlistitems")
+    public List<WishListItems> getBookByWishItem(@PathVariable( value ="book_id") Long book_id) throws BookNotFoundException{
+    	return this.bookRepository.getBookByWishItem(book_id);
+    }	
+
+}
+
+
